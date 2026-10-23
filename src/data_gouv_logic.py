@@ -23,9 +23,9 @@ from typing import Any
 
 import requests
 
-USER_AGENT = "french-gov-cli/0.2.0"
+USER_AGENT = "data-gouv-cli/0.2.0"
 DEFAULT_TIMEOUT = 60.0
-CACHE_DIR = Path(os.getenv("FRENCH_GOV_CACHE", Path.home() / ".cache" / "french-gov-cli"))
+CACHE_DIR = Path(os.getenv("DATA_GOUV_CACHE", Path.home() / ".cache" / "data-gouv-cli"))
 
 
 def _env() -> str:
@@ -246,8 +246,8 @@ def _extract_remote_member(
     except ImportError as exc:
         raise RuntimeError(
             "remotezip is not installed (needed to read a zip member over HTTP range "
-            "requests). Install it with: cd ~/.god-tier-cli/tools/french_gov_tool && "
-            "uv sync --extra remote"
+            "requests). Install the extra: uv tool install \"data-gouv-cli[remote]\" "
+            "or, from a checkout, uv sync --extra remote"
         ) from exc
 
     last_error = ""
@@ -714,8 +714,8 @@ class FrenchGovTool:
             raise RuntimeError(
                 "Excel files cannot be queried in place. Convert the resource to CSV, "
                 "then query the local file: "
-                f"french-gov-cli download-resource {resource_id} --format csv --dest . "
-                "&& french-gov-cli query <downloaded.csv> --sql \"SELECT * FROM data LIMIT 5\""
+                f"data-gouv-cli download-resource {resource_id} --format csv --dest . "
+                "&& data-gouv-cli query <downloaded.csv> --sql \"SELECT * FROM data LIMIT 5\""
             )
 
         strategy = ""
@@ -788,7 +788,7 @@ class FrenchGovTool:
             con.close()
         local = self._download_to_cache(url, cache)
         print(
-            f"[french-gov-cli] remote read of {url} failed ({reason}); "
+            f"[data-gouv-cli] remote read of {url} failed ({reason}); "
             f"downloaded to {local} instead.",
             file=sys.stderr,
         )
@@ -809,7 +809,7 @@ class FrenchGovTool:
         except Exception as exc:
             reason = f"{type(exc).__name__}: {exc}"
         print(
-            f"[french-gov-cli] remote zip read of {url} failed ({reason}); "
+            f"[data-gouv-cli] remote zip read of {url} failed ({reason}); "
             "falling back to a full download of the archive.",
             file=sys.stderr,
         )
@@ -819,7 +819,7 @@ class FrenchGovTool:
         target = _pick_member(infos, member)
         out = _extract_local_member(archive, target, cache)
         print(
-            f"[french-gov-cli] extracted {target} from {archive} to {out}.",
+            f"[data-gouv-cli] extracted {target} from {archive} to {out}.",
             file=sys.stderr,
         )
         return str(out), "zip_download", detect_format(str(out))
@@ -839,7 +839,7 @@ class FrenchGovTool:
                         fh.write(chunk)
         elapsed = time.time() - t0
         print(
-            f"[french-gov-cli] downloaded {out} ({out.stat().st_size} bytes in {elapsed:.1f}s).",
+            f"[data-gouv-cli] downloaded {out} ({out.stat().st_size} bytes in {elapsed:.1f}s).",
             file=sys.stderr,
         )
         return out
@@ -881,7 +881,7 @@ class FrenchGovTool:
             raise RuntimeError(
                 f"{url} returned an HTML page (content-type: {content_type}), not a data file. "
                 f"Saved to {original_path}. Exact next command: "
-                f"french-gov-cli query \"{url}\" --sql \"select * from data limit 10\""
+                f"data-gouv-cli query \"{url}\" --sql \"select * from data limit 10\""
             )
 
         src_ext = Path(name).suffix.lower().lstrip(".")

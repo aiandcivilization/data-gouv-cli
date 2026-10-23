@@ -53,7 +53,7 @@ def render(report: dict, task_key: str = "b") -> str:
     task = report[f"task_{task_key}"]
     question = QUESTIONS[task_key]
     mcp = dict(task["mcp"], label="data.gouv MCP")
-    cli = dict(task["cli"], label="french-gov-cli")
+    cli = dict(task["cli"], label="data-gouv-cli")
     date = report.get("date", "").split("T")[0]
     tokenizer = report.get("tokenizer", "o200k_base")
 

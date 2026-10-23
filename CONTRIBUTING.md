@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for taking the time to improve `french-gov-cli`.
+Thanks for taking the time to improve `data-gouv-cli`.
 
 ## Setup
 
@@ -8,7 +8,7 @@ Thanks for taking the time to improve `french-gov-cli`.
 git clone <this repository>
 cd <repository>
 uv sync
-uv run french-gov-cli --help
+uv run data-gouv-cli --help
 ```
 
 ## Before opening a pull request

@@ -8,15 +8,15 @@ from _vendor.cli_common.toon_output import render_data_as_toon
 from rich.console import Console
 from toon import encode as toon_encode
 
-from french_gov_logic import FrenchGovTool
+from data_gouv_logic import FrenchGovTool
 
 install_toon_help_patch(
-    "french-gov-cli",
+    "data-gouv-cli",
     "French Government Data CLI — data.gouv.fr catalogue, remote SQL queries, generic JSON APIs",
 )
 
 app = typer.Typer(
-    name="french-gov-cli",
+    name="data-gouv-cli",
     help=(
         "French Government Data CLI — data.gouv.fr catalogue, remote SQL queries, generic JSON APIs.\n\n"
         "Catalogue : datasets, resources, dataservices, organizations, metrics.\n"

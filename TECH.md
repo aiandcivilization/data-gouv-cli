@@ -1,12 +1,12 @@
 # Technology Stack & Architecture — french-gov-tool
 
-`french-gov-cli` — the French public data entry point of the fleet.
+`data-gouv-cli` — the French public data entry point of the fleet.
 Three layers: the **data.gouv.fr catalogue**, a **SQL engine over remote
 tabular files**, and a **generic JSON API caller**. TOON output only.
 
 - Version: 0.1.0 (tool) / 0.2.0 (logic)
-- Entry point: `run_french_gov_cli.py` → `french_gov_logic.FrenchGovTool`
-- Skill: `command-line-tools/subskills/french-gov-cli`
+- Entry point: `run_data_gouv_cli.py` → `data_gouv_logic.FrenchGovTool`
+- Skill: `command-line-tools/subskills/data-gouv-cli`
 - Commands: 16 (`--help` is the TOON-rendered, token-lean version)
 
 ---
@@ -27,7 +27,7 @@ tabular files**, and a **generic JSON API caller**. TOON output only.
 | **Sérialisation** | `cli_common.toon_output` + `python-toon` 0.2 | TOON tables and objects | 40-60 % fewer tokens than JSON | Nested cells are flattened to compact JSON before rendering |
 | **CLI** | `typer` 0.27 + `rich` 15 | commands, options, TOON help | Type-annotated, compact help | — |
 | **Réseau** | `requests` 2.34 | HTTP calls, streaming | Explicit timeouts, **full** error bodies (never sliced) | — |
-| **Cache** | `~/.cache/french-gov-cli/` | downloaded archives, extracted members | A downloaded archive is reused by the next query | No expiry policy |
+| **Cache** | `~/.cache/data-gouv-cli/` | downloaded archives, extracted members | A downloaded archive is reused by the next query | No expiry policy |
 
 ---
 

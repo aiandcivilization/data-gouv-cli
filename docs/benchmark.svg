@@ -16,7 +16,7 @@
 <text x="563.0" y="482.3333333333333" font-family="DejaVu Sans Mono, monospace" font-size="31" fill="#C6613F">−67 %</text>
 <line x1="216" y1="720" x2="644" y2="720" stroke="#D8D2C4" stroke-width="2"/>
 <text x="321.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">data.gouv MCP</text>
-<text x="539.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">french-gov-cli</text>
+<text x="539.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">data-gouv-cli</text>
 <text x="321.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="18" fill="#C6613F">no answer</text>
 <text x="539.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="18" fill="#C6613F">6 142 €/m²</text>
 <text x="236" y="294" font-family="DejaVu Sans Mono, monospace" font-size="21" letter-spacing="3" fill="#87867F">STEPS</text>
@@ -29,7 +29,7 @@
 <text x="1263.0" y="532.0" font-family="DejaVu Sans Mono, monospace" font-size="31" fill="#C6613F">−97 %</text>
 <line x1="916" y1="720" x2="1344" y2="720" stroke="#D8D2C4" stroke-width="2"/>
 <text x="1021.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">data.gouv MCP</text>
-<text x="1239.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">french-gov-cli</text>
+<text x="1239.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">data-gouv-cli</text>
 <text x="1021.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="18" fill="#C6613F">no answer</text>
 <text x="1239.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="18" fill="#C6613F">6 142 €/m²</text>
 <text x="936" y="294" font-family="DejaVu Sans Mono, monospace" font-size="21" letter-spacing="3" fill="#87867F">TOKENS</text>

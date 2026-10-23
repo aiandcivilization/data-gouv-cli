@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="docs/logo.svg" width="104" alt="french-gov-cli">
+  <img src="docs/logo.svg" width="104" alt="data-gouv-cli">
 </p>
 
-<h1 align="center">french-gov-cli</h1>
+<h1 align="center">data-gouv-cli</h1>
 
 <p align="center">
   <b>Your agent's interface to French public data.</b><br>
@@ -11,14 +11,14 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/aiandcivilization/french-gov-cli/actions/workflows/ci.yml"><img src="https://github.com/aiandcivilization/french-gov-cli/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/aiandcivilization/data-gouv-cli/actions/workflows/ci.yml"><img src="https://github.com/aiandcivilization/data-gouv-cli/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.12%E2%80%933.15-blue" alt="Python 3.12–3.15">
   <a href="https://github.com/astral-sh/uv"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json" alt="uv"></a>
 </p>
 
 <p align="center">
-  <a href="docs/demo.mp4"><img src="docs/demo.gif" width="900" alt="french-gov-cli demo"></a>
+  <a href="docs/demo.mp4"><img src="docs/demo.gif" width="900" alt="data-gouv-cli demo"></a>
 </p>
 
 ## What you actually ask
@@ -37,7 +37,7 @@ That is twenty minutes of browsing, or an agent session spent negotiating a
 schema. The CLI answers it in one command:
 
 ```bash
-french-gov-cli query \
+data-gouv-cli query \
   "https://files.data.gouv.fr/geo-dvf/latest/csv/2024/communes/06/06018.csv" \
   --sql "SELECT round(median(valeur_fonciere / nullif(surface_reelle_bati, 0)), 1) AS eur_per_m2
          FROM data
@@ -66,9 +66,9 @@ answer.
 | Question | Path | Steps | Tokens | Result |
 |---|---|---|---|---|
 | Population of Biot | data.gouv MCP | 6 | 11,569 | 9,880 (older vintage) |
-| | `french-gov-cli` | 3 | **1,351** | **10,511** (INSEE 2023) |
+| | `data-gouv-cli` | 3 | **1,351** | **10,511** (INSEE 2023) |
 | Median €/m², Biot 2024 | data.gouv MCP | 3 | 6,489* | no answer |
-| | `french-gov-cli` | 1 | **223** | **6,141.8 €/m²** (238 sales) |
+| | `data-gouv-cli` | 1 | **223** | **6,141.8 €/m²** (238 sales) |
 
 \* including the 2,673-token tool schema, counted once.
 
@@ -85,7 +85,7 @@ The same search, measured with `o200k_base`:
 | What the model reads | Tokens |
 |---|---|
 | Raw `data.gouv.fr` API JSON, 3 datasets | 22,187 |
-| `french-gov-cli search-datasets`, 3 datasets | **522** |
+| `data-gouv-cli search-datasets`, 3 datasets | **522** |
 
 42× less context for the same three datasets, before the model reads a single
 row. The CLI projects the seven fields an agent actually uses, prints them as
@@ -96,7 +96,7 @@ TOON, and exits.
 
 ```bash
 curl -s "https://www.data.gouv.fr/api/1/datasets/?q=zonage%20ABC&page_size=3" > raw.json
-french-gov-cli search-datasets "zonage ABC" --page-size 3 > cli.txt
+data-gouv-cli search-datasets "zonage ABC" --page-size 3 > cli.txt
 python -c "import tiktoken,sys; e=tiktoken.get_encoding('o200k_base'); \
   print(len(e.encode(open(sys.argv[1]).read())))" raw.json cli.txt
 # 22187  522
@@ -122,7 +122,7 @@ keys and punctuation.
 ## Install
 
 ```bash
-uv tool install "git+https://github.com/aiandcivilization/french-gov-cli.git"
+uv tool install "git+https://github.com/aiandcivilization/data-gouv-cli.git"
 ```
 
 Requires [uv](https://docs.astral.sh/uv/) and Python 3.12 to 3.15.
@@ -132,17 +132,17 @@ Requires [uv](https://docs.astral.sh/uv/) and Python 3.12 to 3.15.
 
 ```bash
 # pipx
-pipx install "git+https://github.com/aiandcivilization/french-gov-cli.git"
+pipx install "git+https://github.com/aiandcivilization/data-gouv-cli.git"
 
 # run without installing
-uvx --from "git+https://github.com/aiandcivilization/french-gov-cli.git" french-gov-cli --help
+uvx --from "git+https://github.com/aiandcivilization/data-gouv-cli.git" data-gouv-cli --help
 
 # from source
-git clone https://github.com/aiandcivilization/french-gov-cli.git
-cd french-gov-cli && uv sync && uv run french-gov-cli --help
+git clone https://github.com/aiandcivilization/data-gouv-cli.git
+cd data-gouv-cli && uv sync && uv run data-gouv-cli --help
 
 # with the remote-ZIP extra
-uv tool install "french-gov-cli[remote] @ git+https://github.com/aiandcivilization/french-gov-cli.git"
+uv tool install "data-gouv-cli[remote] @ git+https://github.com/aiandcivilization/data-gouv-cli.git"
 ```
 </details>
 
@@ -151,14 +151,14 @@ uv tool install "french-gov-cli[remote] @ git+https://github.com/aiandcivilizati
 Search, then ask for the files:
 
 ```bash
-french-gov-cli search-datasets "zonage ABC" --page-size 3
-french-gov-cli dataset-resources 656715871172d08f8f680063
+data-gouv-cli search-datasets "zonage ABC" --page-size 3
+data-gouv-cli dataset-resources 656715871172d08f8f680063
 ```
 
 Run SQL on a remote CSV — nothing is downloaded:
 
 ```bash
-french-gov-cli query \
+data-gouv-cli query \
   "https://static.data.gouv.fr/resources/liste-des-communes-selon-le-zonage-abc/20260703-091314/liste-ensemble-des-communes-zonage-abc-en-vigueur-26-juin-2026.csv" \
   --sql 'SELECT "Zonage ABC en vigueur depuis le 26 juin 2026" AS zone, count(*) AS communes
          FROM data GROUP BY 1 ORDER BY 2 DESC'
@@ -169,7 +169,7 @@ source: "https://static.data.gouv.fr/resources/liste-des-communes-selon-le-zonag
 format: csv
 strategy: httpfs_direct
 rows_returned: 5
-cache_dir: /home/ubuntu/.cache/french-gov-cli
+cache_dir: /home/ubuntu/.cache/data-gouv-cli
 columns[2]: zone,communes
 rows[5,]{zone,communes}:
   C,28326
@@ -203,7 +203,7 @@ and was read remotely, column by column.
 | `metrics` | Usage metrics for a dataset, resource or organization. |
 
 `query` returns at most 50 rows unless you pass `--limit`. Run
-`french-gov-cli <command> --help` for the flags of one command.
+`data-gouv-cli <command> --help` for the flags of one command.
 
 ## Recipes
 
@@ -211,7 +211,7 @@ and was read remotely, column by column.
 <summary><b>Find every file of a dataset</b></summary>
 
 ```bash
-french-gov-cli resolve 6564969d3579e21795ebd378
+data-gouv-cli resolve 6564969d3579e21795ebd378
 ```
 
 Returns the dataset metadata and a table of resources: id, title, format, size,
@@ -222,7 +222,7 @@ URL, and whether the tabular API can serve it.
 <summary><b>Query a remote ZIP member</b></summary>
 
 ```bash
-french-gov-cli query \
+data-gouv-cli query \
   "https://data.grandpoitiers.fr/data-fair/api/v1/datasets/offre-de-transport-du-reseau-vitalis/metadata-attachments/gtfs.zip" \
   --member "stops.txt" \
   --sql "SELECT stop_name FROM data LIMIT 3"
@@ -239,8 +239,8 @@ member name prints every available member.
 DuckDB cannot query an `.xlsx` in place. Convert it once, then query the CSV:
 
 ```bash
-french-gov-cli download-resource <resource-id> --format csv --dest ./data
-french-gov-cli query ./data/<downloaded>.csv --sql "SELECT * FROM data LIMIT 5"
+data-gouv-cli download-resource <resource-id> --format csv --dest ./data
+data-gouv-cli query ./data/<downloaded>.csv --sql "SELECT * FROM data LIMIT 5"
 ```
 </details>
 
@@ -248,7 +248,7 @@ french-gov-cli query ./data/<downloaded>.csv --sql "SELECT * FROM data LIMIT 5"
 <summary><b>Call any JSON API</b></summary>
 
 ```bash
-french-gov-cli api "https://www.data.gouv.fr/api/1/datasets/?q=eau&page_size=2"
+data-gouv-cli api "https://www.data.gouv.fr/api/1/datasets/?q=eau&page_size=2"
 ```
 
 The payload is printed as TOON, so pagination and nested objects stay readable
@@ -259,7 +259,7 @@ in a terminal.
 <summary><b>Download a resource for offline work</b></summary>
 
 ```bash
-french-gov-cli download-resource <resource-id> --dest ./data
+data-gouv-cli download-resource <resource-id> --dest ./data
 ```
 
 `--dest` defaults to `./downloads` in the current directory.
@@ -269,7 +269,7 @@ french-gov-cli download-resource <resource-id> --dest ./data
 <summary><b>Check how a dataset is used</b></summary>
 
 ```bash
-french-gov-cli metrics datasets 6564969d3579e21795ebd378 --limit 2
+data-gouv-cli metrics datasets 6564969d3579e21795ebd378 --limit 2
 ```
 
 `dataservice-openapi` only answers for the catalogued APIs that publish an
@@ -280,7 +280,7 @@ french-gov-cli metrics datasets 6564969d3579e21795ebd378 --limit 2
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `FRENCH_GOV_CACHE` | `~/.cache/french-gov-cli` | Where downloaded files and remote reads are cached. |
+| `DATA_GOUV_CACHE` | `~/.cache/data-gouv-cli` | Where downloaded files and remote reads are cached. |
 | `DATAGOUV_API_ENV` | `prod` | `prod` for data.gouv.fr, `demo` for the demo environment and tabular preproduction. |
 
 Both are optional; `.env.example` lists them if you prefer a file. No token, no

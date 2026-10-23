@@ -296,5 +296,6 @@
   "date": "2026-10-23T14:01:57+00:00",
   "mcp_server": "data.gouv.fr MCP server 1.30.0 @ https://mcp.data.gouv.fr/mcp",
   "cli_version": "french-gov-cli (god-tier-cli package)",
-  "elapsed_s": 15.7
+  "elapsed_s": 15.7,
+  "note": "The CLI was measured as french-gov-cli 0.1.0 and renamed to data-gouv-cli afterwards; token counts are unaffected."
 }

@@ -9,11 +9,11 @@ import pytest
 
 
 def test_console_script_registered() -> None:
-    assert shutil.which("french-gov-cli"), "console script french-gov-cli is not installed"
+    assert shutil.which("data-gouv-cli"), "console script data-gouv-cli is not installed"
 
 
 def test_help_starts() -> None:
-    executable = shutil.which("french-gov-cli")
+    executable = shutil.which("data-gouv-cli")
     if executable is None:
         pytest.skip("console script not on PATH")
     result = subprocess.run(
