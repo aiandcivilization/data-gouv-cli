@@ -1,0 +1,300 @@
+{
+  "task_a": {
+    "mcp": {
+      "steps": 6,
+      "tokens": 11569,
+      "bytes": 37875,
+      "http_bytes": 36469,
+      "answer": "Biot (INSEE 06018, Alpes-Maritimes) has a population of 9,880.",
+      "tokens_breakdown": {
+        "handshake": 142,
+        "schema": 2673,
+        "tool_responses": 8731,
+        "answer": 23
+      },
+      "commands": [],
+      "protocol_calls": 2,
+      "tools_available": [
+        "search_datasets",
+        "search_organizations",
+        "search_dataservices",
+        "get_dataservice_info",
+        "get_dataservice_openapi_spec",
+        "query_resource_data",
+        "get_dataset_info",
+        "list_dataset_resources",
+        "get_resource_info",
+        "get_metrics"
+      ],
+      "per_call_tokens": [
+        {
+          "method": "initialize",
+          "name": null,
+          "direction": "request",
+          "tokens": 63
+        },
+        {
+          "method": "initialize",
+          "name": null,
+          "direction": "response",
+          "tokens": 79
+        },
+        {
+          "method": "tools/list",
+          "name": null,
+          "direction": "request",
+          "tokens": 27
+        },
+        {
+          "method": "tools/list",
+          "name": null,
+          "direction": "response",
+          "tokens": 2646
+        },
+        {
+          "method": "tools/call",
+          "name": "search_datasets",
+          "direction": "request",
+          "tokens": 54
+        },
+        {
+          "method": "tools/call",
+          "name": "search_datasets",
+          "direction": "response",
+          "tokens": 1201
+        },
+        {
+          "method": "tools/call",
+          "name": "list_dataset_resources",
+          "direction": "request",
+          "tokens": 56
+        },
+        {
+          "method": "tools/call",
+          "name": "list_dataset_resources",
+          "direction": "response",
+          "tokens": 477
+        },
+        {
+          "method": "tools/call",
+          "name": "query_resource_data",
+          "direction": "request",
+          "tokens": 91
+        },
+        {
+          "method": "tools/call",
+          "name": "query_resource_data",
+          "direction": "response",
+          "tokens": 286
+        },
+        {
+          "method": "tools/call",
+          "name": "search_datasets",
+          "direction": "request",
+          "tokens": 59
+        },
+        {
+          "method": "tools/call",
+          "name": "search_datasets",
+          "direction": "response",
+          "tokens": 757
+        },
+        {
+          "method": "tools/call",
+          "name": "list_dataset_resources",
+          "direction": "request",
+          "tokens": 57
+        },
+        {
+          "method": "tools/call",
+          "name": "list_dataset_resources",
+          "direction": "response",
+          "tokens": 3737
+        },
+        {
+          "method": "tools/call",
+          "name": "query_resource_data",
+          "direction": "request",
+          "tokens": 89
+        },
+        {
+          "method": "tools/call",
+          "name": "query_resource_data",
+          "direction": "response",
+          "tokens": 1867
+        }
+      ],
+      "figure": 9880,
+      "schema_counted_here": true,
+      "note": "INSEE 'Populations de référence' resource is not in the Tabular API; the path falls back to a tabular commune table whose population field is an older vintage."
+    },
+    "cli": {
+      "steps": 3,
+      "tokens": 1351,
+      "bytes": 4337,
+      "http_bytes": 0,
+      "answer": "Biot (INSEE 06018, Alpes-Maritimes) has a legal population of 10,511 (INSEE reference populations, 2023 vintage).",
+      "tokens_breakdown": {
+        "commands": 1317,
+        "answer": 34
+      },
+      "commands": [
+        "/home/ubuntu/.local/bin/french-gov-cli search-datasets population légale commune --page-size 5",
+        "/home/ubuntu/.local/bin/french-gov-cli dataset-resources 67e34386efc54deb6b388bac",
+        "/home/ubuntu/.local/bin/french-gov-cli query https://api.insee.fr/melodi/file/DS_POPULATIONS_REFERENCE/DS_POPULATIONS_REFERENCE_2023_CSV_FR --member DS_POPULATIONS_REFERENCE_2023_data.csv -q SELECT GEO, POPREF_MEASURE, OBS_VALUE FROM data WHERE GEO='06018'"
+      ],
+      "per_call_tokens": [
+        {
+          "method": "shell",
+          "name": "french-gov-cli",
+          "direction": "request",
+          "tokens": 23
+        },
+        {
+          "method": "shell",
+          "name": "french-gov-cli",
+          "direction": "response",
+          "tokens": 683
+        },
+        {
+          "method": "shell",
+          "name": "french-gov-cli",
+          "direction": "request",
+          "tokens": 27
+        },
+        {
+          "method": "shell",
+          "name": "french-gov-cli",
+          "direction": "response",
+          "tokens": 190
+        },
+        {
+          "method": "shell",
+          "name": "french-gov-cli",
+          "direction": "request",
+          "tokens": 72
+        },
+        {
+          "method": "shell",
+          "name": "french-gov-cli",
+          "direction": "response",
+          "tokens": 322
+        }
+      ],
+      "figure": 10511,
+      "schema_counted_here": false,
+      "note": "Reads inside the official INSEE zip via --member; 2023 reference population."
+    },
+    "agree": false,
+    "official_reference_figure": 10511,
+    "official_reference_source": "DS_POPULATIONS_REFERENCE_2023_data.csv, GEO=06018, POPREF_MEASURE=PMUN"
+  },
+  "task_b": {
+    "mcp": {
+      "steps": 3,
+      "tokens": 3816,
+      "bytes": 10835,
+      "http_bytes": 10247,
+      "answer": "The MCP server cannot compute a median price per m² for Biot in 2024: the DVF 2024 resource is a 62.4 MB txt.zip that is not indexed by the Tabular API, and query_resource_data refuses it.",
+      "tokens_breakdown": {
+        "schema": 0,
+        "tool_responses": 3764,
+        "answer": 52
+      },
+      "commands": [],
+      "protocol_calls": 0,
+      "tools_available": [
+        "search_datasets",
+        "search_organizations",
+        "search_dataservices",
+        "get_dataservice_info",
+        "get_dataservice_openapi_spec",
+        "query_resource_data",
+        "get_dataset_info",
+        "list_dataset_resources",
+        "get_resource_info",
+        "get_metrics"
+      ],
+      "failure": "Querying resource: Valeurs fonciÃ¨res 2024 Resource ID: 24d0313f-8f07-4514-bf7d-e1d274e61ecc Dataset: Demandes de valeurs fonciÃ¨res (ID: 5c4ae55a634f4117716d5656)  Filter: Code commune exact 06018  â ï¸  This resource ID was not found in the Tabular API. Use search_datasets to find a dataset, then list_dataset_resources to obtain the correct resource ID.",
+      "failure_readable": "Querying resource: Valeurs foncières 2024 Resource ID: 24d0313f-8f07-4514-bf7d-e1d274e61ecc Dataset: Demandes de valeurs foncières (ID: 5c4ae55a634f4117716d5656)  Filter: Code commune exact 06018  ⚠️  This resource ID was not found in the Tabular API. Use search_datasets to find a dataset, then list_dataset_resources to obtain the correct resource ID.",
+      "per_call_tokens": [
+        {
+          "method": "tools/call",
+          "name": "search_datasets",
+          "direction": "request",
+          "tokens": 56
+        },
+        {
+          "method": "tools/call",
+          "name": "search_datasets",
+          "direction": "response",
+          "tokens": 941
+        },
+        {
+          "method": "tools/call",
+          "name": "list_dataset_resources",
+          "direction": "request",
+          "tokens": 58
+        },
+        {
+          "method": "tools/call",
+          "name": "list_dataset_resources",
+          "direction": "response",
+          "tokens": 2331
+        },
+        {
+          "method": "tools/call",
+          "name": "query_resource_data",
+          "direction": "request",
+          "tokens": 90
+        },
+        {
+          "method": "tools/call",
+          "name": "query_resource_data",
+          "direction": "response",
+          "tokens": 288
+        }
+      ],
+      "figure": null,
+      "schema_counted_here": false,
+      "note": "Schema already counted once in task_a (same agent context)."
+    },
+    "cli": {
+      "steps": 1,
+      "tokens": 223,
+      "bytes": 540,
+      "http_bytes": 0,
+      "answer": "The median real-estate price in Biot (06018) in 2024 is 6141.8 EUR per m², over 238 sales.",
+      "tokens_breakdown": {
+        "commands": 190,
+        "answer": 33
+      },
+      "commands": [
+        "/home/ubuntu/.local/bin/french-gov-cli query https://files.data.gouv.fr/geo-dvf/latest/csv/2024/communes/06/06018.csv -q SELECT count(*) AS n, round(median(valeur_fonciere/NULLIF(surface_reelle_bati,0)),1) AS median_eur_m2 FROM data WHERE nature_mutation='Vente' AND surface_reelle_bati > 9"
+      ],
+      "per_call_tokens": [
+        {
+          "method": "shell",
+          "name": "french-gov-cli",
+          "direction": "request",
+          "tokens": 93
+        },
+        {
+          "method": "shell",
+          "name": "french-gov-cli",
+          "direction": "response",
+          "tokens": 97
+        }
+      ],
+      "figure": 6141.8,
+      "schema_counted_here": false,
+      "sql": "median(valeur_fonciere/NULLIF(surface_reelle_bati,0)) WHERE nature_mutation='Vente' AND surface_reelle_bati > 9",
+      "sales": 238
+    }
+  },
+  "tokenizer": "o200k_base",
+  "date": "2026-10-23T14:01:57+00:00",
+  "mcp_server": "data.gouv.fr MCP server 1.30.0 @ https://mcp.data.gouv.fr/mcp",
+  "cli_version": "french-gov-cli (god-tier-cli package)",
+  "elapsed_s": 15.7
+}

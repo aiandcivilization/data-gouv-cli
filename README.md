@@ -21,11 +21,64 @@
   <a href="docs/demo.mp4"><img src="docs/demo.gif" width="900" alt="french-gov-cli demo"></a>
 </p>
 
-## The problem
+## What you actually ask
 
-An agent that needs one number from `data.gouv.fr` usually pays for the whole
-catalogue: a server to install, a tool schema in the context, a JSON payload
-with forty fields, then a ZIP download.
+> **“What is the median price per m² in Biot?”**
+
+You know the answer is somewhere on `data.gouv.fr`. What you do not know:
+
+- **which dataset** — DVF, INSEE, the notaries, a regional portal?
+- **which fields** — forty columns, and the price is a ratio of two of them;
+- **which commune code** — `06018`, not “Biot”;
+- **whether to download** — the 2024 file is 107 MB; the commune file is a few
+  hundred rows.
+
+That is twenty minutes of browsing, or an agent session spent negotiating a
+schema. The CLI answers it in one command:
+
+```bash
+french-gov-cli query \
+  "https://files.data.gouv.fr/geo-dvf/latest/csv/2024/communes/06/06018.csv" \
+  --sql "SELECT round(median(valeur_fonciere / nullif(surface_reelle_bati, 0)), 1) AS eur_per_m2
+         FROM data
+         WHERE nature_mutation = 'Vente' AND surface_reelle_bati > 9"
+```
+
+```text
+columns[1]: eur_per_m2
+rows[1,]{eur_per_m2}:
+  6141.8
+```
+
+One row. No 107 MB download, no schema in the context, no field guessing.
+
+## Same question, two paths
+
+An agent can answer the same question through the official data.gouv.fr MCP
+server, or through this CLI. We ran both on 23 October 2026 and counted what
+the model reads: the tool schema, every request, every response, and the final
+answer.
+
+<p align="center">
+  <img src="docs/benchmark.svg" width="880" alt="Median price per square metre in Biot: the MCP spends 6,489 tokens and gets no answer; the CLI spends 223 tokens and returns 6,142 euros per square metre. Population: 6 steps and 11,569 tokens versus 3 steps and 1,351 tokens.">
+</p>
+
+| Question | Path | Steps | Tokens | Result |
+|---|---|---|---|---|
+| Population of Biot | data.gouv MCP | 6 | 11,569 | 9,880 (older vintage) |
+| | `french-gov-cli` | 3 | **1,351** | **10,511** (INSEE 2023) |
+| Median €/m², Biot 2024 | data.gouv MCP | 3 | 6,489* | no answer |
+| | `french-gov-cli` | 1 | **223** | **6,141.8 €/m²** (238 sales) |
+
+\* including the 2,673-token tool schema, counted once.
+
+The MCP is not slow; it is bounded by its tools. DVF 2024 is not indexed by the
+Tabular API, so the server has no path to the answer. On population it falls
+back to a derived table with an older vintage. The CLI reads the official INSEE
+archive and the commune file directly, and prints one row. Raw transcript:
+[`benchmarks/mcp-vs-cli.json`](benchmarks/mcp-vs-cli.json).
+
+## Why it stays small
 
 The same search, measured with `o200k_base`:
 
@@ -36,7 +89,7 @@ The same search, measured with `o200k_base`:
 
 42× less context for the same three datasets, before the model reads a single
 row. The CLI projects the seven fields an agent actually uses, prints them as
-TOON, and exits. No handshake, no schema, no server.
+TOON, and exits.
 
 <details>
 <summary>How the tokens were counted</summary>

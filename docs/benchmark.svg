@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img">
+<defs>
+<marker id="drop" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 Z" fill="#C6613F"/>
+</marker>
+</defs>
+<rect width="1600" height="900" fill="#F0EEE6"/>
+<text x="96" y="110" font-family="DejaVu Sans Mono, monospace" font-size="19" letter-spacing="3" fill="#87867F">SAME QUESTION · 2026-10-23</text>
+<text x="96" y="186" font-family="DejaVu Serif, serif" font-size="58" font-weight="700" fill="#141413">One question. One path answers.</text>
+<text x="96" y="234" font-family="DejaVu Sans, sans-serif" font-size="25" fill="#3D3D3A">What is the median price per m² in Biot in 2024?</text>
+<rect x="236" y="320" width="170" height="400" rx="10" fill="#D97757" fill-opacity="0.10" stroke="#D97757" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="7 7"/>
+<rect x="454" y="586.6666666666666" width="170" height="133.33333333333334" rx="10" fill="#D97757"/>
+<text x="321.0" y="378" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="40" fill="#141413">3</text>
+<text x="539.0" y="636.6666666666666" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="38" fill="#FAF9F5">1</text>
+<line x1="392" y1="404" x2="539.0" y2="560.6666666666666" stroke="#C6613F" stroke-width="5" stroke-linecap="round" marker-end="url(#drop)"/>
+<text x="563.0" y="482.3333333333333" font-family="DejaVu Sans Mono, monospace" font-size="31" fill="#C6613F">−67 %</text>
+<line x1="216" y1="720" x2="644" y2="720" stroke="#D8D2C4" stroke-width="2"/>
+<text x="321.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#3D3D3A">data.gouv MCP</text>
+<text x="539.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#3D3D3A">french-gov-cli</text>
+<text x="321.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="#C6613F">no answer</text>
+<text x="539.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="#C6613F">6 142 €/m²</text>
+<text x="236" y="294" font-family="DejaVu Sans Mono, monospace" font-size="21" letter-spacing="3" fill="#87867F">STEPS</text>
+<text x="236" y="318" font-family="DejaVu Sans Mono, monospace" font-size="14" fill="#87867F">tool calls</text>
+<rect x="936" y="320" width="170" height="400" rx="10" fill="#D97757" fill-opacity="0.10" stroke="#D97757" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="7 7"/>
+<rect x="1154" y="686" width="170" height="34" rx="10" fill="#D97757"/>
+<text x="1021.0" y="378" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="40" fill="#141413">6 489</text>
+<text x="1342" y="715.0" font-family="DejaVu Sans Mono, monospace" font-size="36" fill="#C6613F">223</text>
+<line x1="1092" y1="404" x2="1239.0" y2="660" stroke="#C6613F" stroke-width="5" stroke-linecap="round" marker-end="url(#drop)"/>
+<text x="1263.0" y="532.0" font-family="DejaVu Sans Mono, monospace" font-size="31" fill="#C6613F">−97 %</text>
+<line x1="916" y1="720" x2="1344" y2="720" stroke="#D8D2C4" stroke-width="2"/>
+<text x="1021.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#3D3D3A">data.gouv MCP</text>
+<text x="1239.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#3D3D3A">french-gov-cli</text>
+<text x="1021.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="#C6613F">no answer</text>
+<text x="1239.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="#C6613F">6 142 €/m²</text>
+<text x="936" y="294" font-family="DejaVu Sans Mono, monospace" font-size="21" letter-spacing="3" fill="#87867F">TOKENS</text>
+<text x="936" y="318" font-family="DejaVu Sans Mono, monospace" font-size="14" fill="#87867F">tiktoken o200k_base</text>
+<line x1="96" y1="806" x2="1504" y2="806" stroke="#D8D2C4" stroke-width="1"/>
+<text x="96" y="846" font-family="DejaVu Sans Mono, monospace" font-size="15" fill="#87867F">raw transcript: benchmarks/mcp-vs-cli.json · MCP includes the 2,673-token tool schema · zero-based axis</text>
+</svg>
