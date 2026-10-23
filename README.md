@@ -43,7 +43,7 @@ No API key. No account. Public data only.
 
 [![french-gov-cli demo](docs/demo.gif)](docs/demo.mp4)
 
-*A 20-second tour: search, inspect, then SQL over a remote CSV.*
+*A 24-second tour: search, inspect, then SQL over a remote CSV.*
 
 ## Installation
 
