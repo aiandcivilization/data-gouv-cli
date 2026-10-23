@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/logo.svg" width="104" alt="data-gouv-cli">
+  <img src="docs/logo.png" width="104" alt="data-gouv-cli">
 </p>
 
 <h1 align="center">data-gouv-cli</h1>
