@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "french-gov-cli"
+version = "0.1.0"
+description = "Clean wrapper around the French government data.gouv.fr APIs (datasets, dataservices, orgs, resources, tabular, metrics)."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12,<3.16"
+authors = [
+    { name = "yanis.labeyrie" },
+]
+keywords = [
+    "french",
+    "gov",
+    "clean",
+    "wrapper",
+    "around",
+    "government",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "typer>=0.12",
+    "rich",
+    "requests>=2.31",
+    "python-toon>=0.1.3",
+    "openpyxl>=3.1",
+    "xlrd>=2.0",
+    "pyarrow>=15.0",
+    "duckdb>=1.2.0",
+    "click",
+    "cyclopts",
+    "rapidfuzz",
+]
+
+[project.scripts]
+french-gov-cli = "run_french_gov_cli:main"
+
+[project.optional-dependencies]
+remote = [
+    "remotezip>=0.12.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/aiandcivilization/french-gov-cli"
+Repository = "https://github.com/aiandcivilization/french-gov-cli"
+Issues = "https://github.com/aiandcivilization/french-gov-cli/issues"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = [
+    "french_gov_logic",
+    "run_french_gov_cli",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+# Start with correctness only; raise the bar once the tree is clean.
+select = ["E9", "F"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
