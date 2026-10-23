@@ -141,20 +141,20 @@ def render(report: dict, task_key: str = "b") -> str:
         )
         parts.append(
             f'<text x="{tall_x + BAR_W / 2}" y="{BASELINE + 34}" text-anchor="middle" '
-            f'font-family="DejaVu Sans, sans-serif" font-size="19" fill="{SLATE}">{esc(mcp["label"])}</text>'
+            f'font-family="DejaVu Sans, sans-serif" font-size="21" fill="{SLATE}">{esc(mcp["label"])}</text>'
         )
         parts.append(
             f'<text x="{short_x + BAR_W / 2}" y="{BASELINE + 34}" text-anchor="middle" '
-            f'font-family="DejaVu Sans, sans-serif" font-size="19" fill="{SLATE}">{esc(cli["label"])}</text>'
+            f'font-family="DejaVu Sans, sans-serif" font-size="21" fill="{SLATE}">{esc(cli["label"])}</text>'
         )
         high_color = CLAY_DEEP if "no answer" in high_out else CLOUD
         parts.append(
             f'<text x="{tall_x + BAR_W / 2}" y="{BASELINE + 60}" text-anchor="middle" '
-            f'font-family="DejaVu Sans Mono, monospace" font-size="16" fill="{high_color}">{esc(high_out)}</text>'
+            f'font-family="DejaVu Sans Mono, monospace" font-size="18" fill="{high_color}">{esc(high_out)}</text>'
         )
         parts.append(
             f'<text x="{short_x + BAR_W / 2}" y="{BASELINE + 60}" text-anchor="middle" '
-            f'font-family="DejaVu Sans Mono, monospace" font-size="16" fill="{CLAY_DEEP}">{esc(low_out)}</text>'
+            f'font-family="DejaVu Sans Mono, monospace" font-size="18" fill="{CLAY_DEEP}">{esc(low_out)}</text>'
         )
         parts.append(
             f'<text x="{tall_x}" y="{tall_top - 26}" font-family="DejaVu Sans Mono, monospace" '
@@ -169,7 +169,7 @@ def render(report: dict, task_key: str = "b") -> str:
     parts.extend(
         [
             f'<line x1="96" y1="806" x2="1504" y2="806" stroke="{LINE}" stroke-width="1"/>',
-            f'<text x="96" y="846" font-family="DejaVu Sans Mono, monospace" font-size="15" fill="{CLOUD}">'
+            f'<text x="96" y="846" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="{CLOUD}">'
             f'raw transcript: benchmarks/mcp-vs-cli.json{schema_note} · zero-based axis</text>',
         ]
     )

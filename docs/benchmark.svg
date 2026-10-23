@@ -15,10 +15,10 @@
 <line x1="392" y1="404" x2="539.0" y2="560.6666666666666" stroke="#C6613F" stroke-width="5" stroke-linecap="round" marker-end="url(#drop)"/>
 <text x="563.0" y="482.3333333333333" font-family="DejaVu Sans Mono, monospace" font-size="31" fill="#C6613F">−67 %</text>
 <line x1="216" y1="720" x2="644" y2="720" stroke="#D8D2C4" stroke-width="2"/>
-<text x="321.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#3D3D3A">data.gouv MCP</text>
-<text x="539.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#3D3D3A">french-gov-cli</text>
-<text x="321.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="#C6613F">no answer</text>
-<text x="539.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="#C6613F">6 142 €/m²</text>
+<text x="321.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">data.gouv MCP</text>
+<text x="539.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">french-gov-cli</text>
+<text x="321.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="18" fill="#C6613F">no answer</text>
+<text x="539.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="18" fill="#C6613F">6 142 €/m²</text>
 <text x="236" y="294" font-family="DejaVu Sans Mono, monospace" font-size="21" letter-spacing="3" fill="#87867F">STEPS</text>
 <text x="236" y="318" font-family="DejaVu Sans Mono, monospace" font-size="14" fill="#87867F">tool calls</text>
 <rect x="936" y="320" width="170" height="400" rx="10" fill="#D97757" fill-opacity="0.10" stroke="#D97757" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="7 7"/>
@@ -28,12 +28,12 @@
 <line x1="1092" y1="404" x2="1239.0" y2="660" stroke="#C6613F" stroke-width="5" stroke-linecap="round" marker-end="url(#drop)"/>
 <text x="1263.0" y="532.0" font-family="DejaVu Sans Mono, monospace" font-size="31" fill="#C6613F">−97 %</text>
 <line x1="916" y1="720" x2="1344" y2="720" stroke="#D8D2C4" stroke-width="2"/>
-<text x="1021.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#3D3D3A">data.gouv MCP</text>
-<text x="1239.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#3D3D3A">french-gov-cli</text>
-<text x="1021.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="#C6613F">no answer</text>
-<text x="1239.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="#C6613F">6 142 €/m²</text>
+<text x="1021.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">data.gouv MCP</text>
+<text x="1239.0" y="754" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#3D3D3A">french-gov-cli</text>
+<text x="1021.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="18" fill="#C6613F">no answer</text>
+<text x="1239.0" y="780" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="18" fill="#C6613F">6 142 €/m²</text>
 <text x="936" y="294" font-family="DejaVu Sans Mono, monospace" font-size="21" letter-spacing="3" fill="#87867F">TOKENS</text>
 <text x="936" y="318" font-family="DejaVu Sans Mono, monospace" font-size="14" fill="#87867F">tiktoken o200k_base</text>
 <line x1="96" y1="806" x2="1504" y2="806" stroke="#D8D2C4" stroke-width="1"/>
-<text x="96" y="846" font-family="DejaVu Sans Mono, monospace" font-size="15" fill="#87867F">raw transcript: benchmarks/mcp-vs-cli.json · MCP includes the 2,673-token tool schema · zero-based axis</text>
+<text x="96" y="846" font-family="DejaVu Sans Mono, monospace" font-size="16" fill="#87867F">raw transcript: benchmarks/mcp-vs-cli.json · MCP includes the 2,673-token tool schema · zero-based axis</text>
 </svg>
