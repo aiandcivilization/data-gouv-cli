@@ -83,7 +83,24 @@ def install_toon_help_patch(default_name: str = "", default_desc: str = "") -> N
 
         def _help_dict_for_obj(obj: Any, ctx: Any = None) -> dict[str, Any]:
             raw_help = getattr(obj, "help", "") or ""
-            document = _base_dict(description_for(command) or default_desc or _first_line(raw_help))
+            # A subcommand has its own docstring; the registry only describes
+            # the root command. Using the root description here made every
+            # ``<tool> <command> --help`` claim to be the whole tool.
+            info_name = str(getattr(ctx, "info_name", "") or "") or str(getattr(obj, "name", "") or "")
+            is_subcommand = bool(info_name) and info_name != command
+            registry_desc = "" if is_subcommand else (description_for(command) or default_desc)
+            if is_subcommand:
+                # _base_dict() always re-reads the root registry, which would
+                # overwrite the subcommand docstring we just chose.
+                document: dict[str, Any] = {
+                    "name": _command_name(),
+                    "description": _first_line(raw_help),
+                }
+                skill = os.environ.get("GOD_TIER_CLI_SKILL", "").strip()
+                if skill:
+                    document["skill"] = skill
+            else:
+                document = _base_dict(registry_desc or _first_line(raw_help))
 
             if hasattr(obj, "commands") or isinstance(obj, getattr(click, "Group", type(None))):
                 commands = []
@@ -99,7 +116,11 @@ def install_toon_help_patch(default_name: str = "", default_desc: str = "") -> N
             else:
                 parameters = []
                 for parameter in getattr(obj, "params", []):
-                    name = getattr(parameter, "name", "") or "/".join(getattr(parameter, "opts", []))
+                    # The flag is what the user types: ``--format``, not the
+                    # Python attribute ``fmt``. Fall back to the name only for
+                    # a positional argument, which has no option string.
+                    opts = [opt for opt in (getattr(parameter, "opts", []) or []) if opt]
+                    name = "/".join(opts) or getattr(parameter, "name", "")
                     entry: dict[str, Any] = {
                         "name": str(name),
                         "type": getattr(getattr(parameter, "type", None), "name", "text"),

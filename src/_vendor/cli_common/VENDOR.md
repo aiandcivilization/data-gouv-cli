@@ -4,7 +4,7 @@
 copied verbatim so this repository installs without the internal fleet.
 
 - Origin: `/home/ubuntu/.god-tier-cli/tools/cli_common`
-- Commit: `57a8f4c0`
+- Commit: `6df65a35`
 - License: MIT
 - Modules:
 

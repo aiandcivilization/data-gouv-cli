@@ -246,8 +246,8 @@ def _extract_remote_member(
     except ImportError as exc:
         raise RuntimeError(
             "remotezip is not installed (needed to read a zip member over HTTP range "
-            "requests). Install the extra: uv tool install \"french-gov-cli[remote]\" "
-            "or, from a checkout, uv sync --extra remote"
+            "requests). Install it with: cd ~/.god-tier-cli/tools/french_gov_tool && "
+            "uv sync --extra remote"
         ) from exc
 
     last_error = ""
@@ -710,10 +710,12 @@ class FrenchGovTool:
             magic, ctype = _head_bytes(location, 16) if is_remote else (b"", None)
             fmt = detect_format(location, ctype or meta.get("content_type"), magic)
         if fmt == "excel":
+            resource_id = meta.get("resource_id") or "<resource-id>"
             raise RuntimeError(
-                "Excel files are not queryable by DuckDB. Use excel-cli (DuckDB backend) on the "
-                "downloaded file instead: french-gov-cli download-resource "
-                f"{meta.get('resource_id', '<resource_id>')}"
+                "Excel files cannot be queried in place. Convert the resource to CSV, "
+                "then query the local file: "
+                f"french-gov-cli download-resource {resource_id} --format csv --dest . "
+                "&& french-gov-cli query <downloaded.csv> --sql \"SELECT * FROM data LIMIT 5\""
             )
 
         strategy = ""
@@ -846,7 +848,7 @@ class FrenchGovTool:
     # download
     # ------------------------------------------------------------------ #
 
-    def download_resource(self, resource_id: str, dest_dir: str = "/tmp/opencode", fmt: str = "auto") -> dict:
+    def download_resource(self, resource_id: str, dest_dir: str = "downloads", fmt: str = "auto") -> dict:
         """Download a resource, with a guard against landing pages.
 
         A data.gouv resource URL sometimes points to an HTML page (the Insee

@@ -76,6 +76,9 @@ namespaces = false
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+# Vendored code is not ours to lint. Fixing it here would diverge
+# from the upstream copy recorded in VENDOR.md.
+exclude = ["src/_vendor"]
 
 [tool.ruff.lint]
 # Start with correctness only; raise the bar once the tree is clean.
