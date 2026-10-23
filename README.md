@@ -15,7 +15,6 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT"></a>
   <img src="https://img.shields.io/badge/python-3.12%E2%80%933.15-blue" alt="Python 3.12–3.15">
   <a href="https://github.com/astral-sh/uv"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json" alt="uv"></a>
-  <a href="https://github.com/aiandcivilization/french-gov-cli/stargazers"><img src="https://img.shields.io/github/stars/aiandcivilization/french-gov-cli?style=flat" alt="Stars"></a>
 </p>
 
 <p align="center">
