@@ -1,4 +1,4 @@
-# Technology Stack & Architecture — french-gov-tool
+# Technology Stack & Architecture — data-gouv-tool
 
 `data-gouv-cli` — the French public data entry point of the fleet.
 Three layers: the **data.gouv.fr catalogue**, a **SQL engine over remote
