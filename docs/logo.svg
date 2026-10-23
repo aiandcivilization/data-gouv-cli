@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="french-gov-cli">
+  <rect width="512" height="512" rx="116" fill="#F0EEE6"/>
+  <rect x="64" y="72" width="384" height="368" rx="48" fill="#141413"/>
+  <circle cx="112" cy="120" r="9" fill="#D97757"/>
+  <circle cx="144" cy="120" r="9" fill="#D4A27F"/>
+  <circle cx="176" cy="120" r="9" fill="#788C5D"/>
+  <path d="M124 176 L196 232 L124 288" stroke="#D97757" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="232" y="260" width="116" height="28" rx="14" fill="#FAF9F5"/>
+  <rect x="124" y="332" width="40" height="60" rx="8" fill="#788C5D"/>
+  <rect x="180" y="308" width="40" height="84" rx="8" fill="#6A9BCC"/>
+  <rect x="236" y="352" width="40" height="40" rx="8" fill="#D4A27F"/>
+  <rect x="292" y="288" width="40" height="104" rx="8" fill="#D97757"/>
+</svg>
