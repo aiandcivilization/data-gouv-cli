@@ -246,8 +246,8 @@ def _extract_remote_member(
     except ImportError as exc:
         raise RuntimeError(
             "remotezip is not installed (needed to read a zip member over HTTP range "
-            "requests). Install it with: cd ~/.god-tier-cli/tools/french_gov_tool && "
-            "uv sync --extra remote"
+            "requests). Install the extra: uv tool install \"french-gov-cli[remote]\" "
+            "or, from a checkout, uv sync --extra remote"
         ) from exc
 
     last_error = ""
