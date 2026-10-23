@@ -39,6 +39,22 @@ The same search, measured with `o200k_base`:
 row. The CLI projects the seven fields an agent actually uses, prints them as
 TOON, and exits. No handshake, no schema, no server.
 
+<details>
+<summary>How the tokens were counted</summary>
+
+```bash
+curl -s "https://www.data.gouv.fr/api/1/datasets/?q=zonage%20ABC&page_size=3" > raw.json
+french-gov-cli search-datasets "zonage ABC" --page-size 3 > cli.txt
+python -c "import tiktoken,sys; e=tiktoken.get_encoding('o200k_base'); \
+  print(len(e.encode(open(sys.argv[1]).read())))" raw.json cli.txt
+# 22187  522
+```
+
+`o200k_base` is a public tokenizer, not Claude's; it is used here because it is
+reproducible. The ratio holds across tokenizers because the CLI removes fields,
+keys and punctuation.
+</details>
+
 ## What makes it small
 
 - **Projection, not passthrough.** `search-datasets` returns `id`, `title`,
