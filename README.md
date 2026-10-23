@@ -1,24 +1,49 @@
-# 🗄️ french-gov-cli
+# 🇫🇷 french-gov-cli
 
-> Clean wrapper around the French government data.gouv.fr APIs (datasets, dataservices, orgs, resources, tabular, metrics).
+> Search, inspect and query data.gouv.fr from your terminal — including SQL over a remote CSV without downloading it.
 
-[![CI](https://github.com/aiandcivilization/french-gov-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/aiandcivilization/french-gov-cli/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE) [![Python](https://img.shields.io/badge/python-3.12%2B-blue)](pyproject.toml) [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+[![CI](https://github.com/aiandcivilization/french-gov-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/aiandcivilization/french-gov-cli/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.12%2B-blue)](pyproject.toml)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
 ## Table of Contents
 
-- [Description](#description)
+- [Why](#why)
+- [Demo](#demo)
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Commands](#commands)
+- [Recipes](#recipes)
 - [Configuration](#configuration)
+- [Output format](#output-format)
 - [Development](#development)
 - [License](#license)
 
-## Description
+## Why
 
-Clean wrapper around the French government data.gouv.fr APIs (datasets, dataservices, orgs, resources, tabular, metrics).
+data.gouv.fr hosts French public data: population, housing, water quality,
+subsidies, company registries. The website is good for browsing and bad for
+getting one number out of it. You click through a dataset page, land on a ZIP,
+download 700 MB, open a spreadsheet, and only then discover the column you
+needed.
 
-<!-- TODO(opensource): add a demo GIF or a short asciinema recording here. -->
+This CLI turns that into commands:
+
+- find a dataset and its resources in one call;
+- run SQL against a remote CSV, Parquet or JSON file over HTTP range requests,
+  so a 900 MB file costs one range read, not a download;
+- read a member of a remote ZIP the same way;
+- get every answer as TOON, a compact tabular format that an LLM reads without
+  burning context on JSON punctuation.
+
+No API key. No account. Public data only.
+
+## Demo
+
+[![french-gov-cli demo](docs/demo.gif)](docs/demo.mp4)
+
+*A 20-second tour: search, inspect, then SQL over a remote CSV.*
 
 ## Installation
 
@@ -28,13 +53,7 @@ Clean wrapper around the French government data.gouv.fr APIs (datasets, dataserv
 uv tool install "git+https://github.com/aiandcivilization/french-gov-cli.git"
 ```
 
-Requires [uv](https://docs.astral.sh/uv/) and Python 3.12+.
-
-### Run without installing
-
-```bash
-uvx --from "git+https://github.com/aiandcivilization/french-gov-cli.git" french-gov-cli --help
-```
+Requires [uv](https://docs.astral.sh/uv/) and Python 3.12 to 3.15.
 
 ### pipx
 
@@ -42,10 +61,10 @@ uvx --from "git+https://github.com/aiandcivilization/french-gov-cli.git" french-
 pipx install "git+https://github.com/aiandcivilization/french-gov-cli.git"
 ```
 
-### Once the package is on PyPI
+### Run without installing
 
 ```bash
-uv tool install french-gov-cli
+uvx --from "git+https://github.com/aiandcivilization/french-gov-cli.git" french-gov-cli --help
 ```
 
 ### From source
@@ -57,52 +76,184 @@ uv sync
 uv run french-gov-cli --help
 ```
 
-## Quick start
+### Optional: read a member of a remote ZIP
 
 ```bash
-french-gov-cli --help
-french-gov-cli search-datasets --help
+uv tool install "french-gov-cli[remote] @ git+https://github.com/aiandcivilization/french-gov-cli.git"
 ```
+
+## Quick start
+
+Search, then ask for the files of the dataset you picked:
+
+```bash
+french-gov-cli search-datasets "zonage ABC" --page-size 3
+french-gov-cli dataset-resources 656715871172d08f8f680063
+```
+
+Run SQL on a remote CSV — nothing is downloaded:
+
+```bash
+french-gov-cli query \
+  "https://static.data.gouv.fr/resources/liste-des-communes-selon-le-zonage-abc/20260703-091314/liste-ensemble-des-communes-zonage-abc-en-vigueur-26-juin-2026.csv" \
+  --sql 'SELECT "Zonage ABC en vigueur depuis le 26 juin 2026" AS zone, count(*) AS communes
+         FROM data GROUP BY 1 ORDER BY 2 DESC'
+```
+
+```text
+source: "https://static.data.gouv.fr/resources/liste-des-communes-selon-le-zonage-abc/..."
+format: csv
+strategy: httpfs_direct
+rows_returned: 5
+cache_dir: /home/ubuntu/.cache/french-gov-cli
+columns[2]: zone,communes
+rows[5,]{zone,communes}:
+  C,28326
+  B2,3162
+  B1,2383
+  A,870
+  Abis,134
+```
+
+28,326 communes are in zone C, 870 in the tightest zone A. The file is 878 KB
+and was read remotely, column by column.
 
 ## Commands
 
 | Command | What it does |
 |---|---|
-| `french-gov-cli search-datasets` | Search datasets on data.gouv.fr (resource URLs included). |
-| `french-gov-cli dataset` | Get detailed info about a dataset. |
-| `french-gov-cli resolve` | Resolve a dataset into ready-to-use file URLs (one call). |
-| `french-gov-cli dataset-resources` | List the resources of a dataset with their download URLs. |
-| `french-gov-cli resource` | Get detailed info about a resource. |
-| `french-gov-cli query` | Run SQL over a remote or local tabular file without downloading it. |
-| `french-gov-cli api` | Call any JSON API and get the answer as TOON. |
-| `french-gov-cli query-resource` | Query rows of a resource through the tabular API. |
-| `french-gov-cli search-dataservices` | Search the third-party APIs cataloged on data.gouv.fr. |
-| `french-gov-cli dataservice` | Get detailed info about a third-party API. |
-| `french-gov-cli dataservice-openapi` | Fetch and summarize the OpenAPI spec of a third-party API. |
-| `french-gov-cli search-orgs` | Search the publishing organizations. |
-| `french-gov-cli org` | Get detailed info about an organization. |
-| `french-gov-cli download-resource` | Download a resource (streamed, max speed) with optional auto-conversion. |
-| `french-gov-cli metrics` | Get usage metrics for a dataset/resource/org. |
-| `french-gov-cli inspect` | Show the tool's own metadata (package, entrypoint, skill, index). |
+| `search-datasets` | Search datasets, resource URLs included. |
+| `dataset` | Detailed metadata for one dataset. |
+| `dataset-resources` | List the resources of a dataset with their download URLs. |
+| `resolve` | Resolve a dataset into ready-to-use file URLs in one call. |
+| `resource` | Detailed metadata for one resource. |
+| `query` | Run SQL over a remote or local CSV, Parquet, JSON or ZIP member. |
+| `query-resource` | Query rows through the data.gouv.fr tabular API. |
+| `download-resource` | Stream a resource to disk with optional conversion. |
+| `api` | Call any JSON API and print the answer as TOON. |
+| `search-dataservices` | Search the third-party APIs catalogued on data.gouv.fr. |
+| `dataservice` | Detailed metadata for a third-party API. |
+| `dataservice-openapi` | Fetch and summarize the OpenAPI spec of a third-party API. |
+| `search-orgs` | Search publishing organizations. |
+| `org` | Detailed metadata for an organization. |
+| `metrics` | Usage metrics for a dataset, resource or organization. |
 
 Run `french-gov-cli <command> --help` for the options of one command.
 
+`query` returns at most 50 rows unless you pass `--limit`. A bare
+`SELECT *` is wrapped in `LIMIT 50` for you.
+
+## Recipes
+
+### Find every file of a dataset
+
+```bash
+french-gov-cli resolve 6564969d3579e21795ebd378
+```
+
+`resolve` returns the dataset metadata and a table of resources: id, title,
+format, size, URL, and whether the tabular API can serve it.
+
+### Query a remote ZIP member
+
+```bash
+french-gov-cli query \
+  "https://data.grandpoitiers.fr/data-fair/api/v1/datasets/offre-de-transport-du-reseau-vitalis/metadata-attachments/gtfs.zip" \
+  --member "stops.txt" \
+  --sql "SELECT stop_name FROM data LIMIT 3"
+```
+
+With the `remote` extra installed, only the member's byte range is fetched
+(`strategy: zip_range`). Without it, the archive is downloaded once. A wrong
+member name prints every available member.
+
+### Call any JSON API
+
+```bash
+french-gov-cli api "https://www.data.gouv.fr/api/1/datasets/?q=eau&page_size=2"
+```
+
+`api` prints the JSON payload as TOON, so pagination and nested objects stay
+readable in a terminal.
+
+### Excel resources
+
+DuckDB cannot query an `.xlsx` in place. Convert it once, then query the CSV:
+
+```bash
+french-gov-cli download-resource <resource-id> --format csv --dest ./data
+french-gov-cli query ./data/<downloaded>.csv --sql "SELECT * FROM data LIMIT 5"
+```
+
+### Download a resource for offline work
+
+```bash
+french-gov-cli download-resource <resource-id> --dest ./data
+```
+
+`--dest` defaults to `./downloads` in the current directory.
+
+### Check how a dataset is used
+
+```bash
+french-gov-cli metrics datasets 6564969d3579e21795ebd378 --limit 2
+```
+
+`dataservice-openapi` only answers for the few catalogued APIs that publish an
+`openapi_url`. When none exists it prints `note: No OpenAPI spec URL available.`
+
 ## Configuration
 
-| Variable | Purpose |
-|---|---|
-| `DATAGOUV_API_ENV` | <!-- TODO(opensource): describe this variable --> |
-| `FRENCH_GOV_CACHE` | <!-- TODO(opensource): describe this variable --> |
+| Variable | Default | Purpose |
+|---|---|---|
+| `FRENCH_GOV_CACHE` | `~/.cache/french-gov-cli` | Where downloaded files and remote reads are cached. |
+| `DATAGOUV_API_ENV` | `prod` | `prod` for data.gouv.fr, `demo` for the demo environment and tabular preproduction. |
+
+No token, no credential, no config file. The tool only reads public data. Both
+variables are optional; `.env.example` lists them if you prefer a file.
+
+## Output format
+
+Every command prints [TOON](https://github.com/toon-format/toon). A table has
+a header line with the columns, then one row per line:
+
+```text
+columns[2]: zone,communes
+rows[2,]{zone,communes}:
+  C,28326
+  A,870
+```
+
+A single object is printed as `key: value` lines:
+
+```text
+id: 656715871172d08f8f680063
+title: Liste des communes selon le zonage ABC
+license: lov2
+```
+
+`query` adds five metadata lines before its table (`source`, `format`,
+`strategy`, `rows_returned`, `cache_dir`), and `api` adds the pagination keys
+of the endpoint. The data is the same as JSON, minus the punctuation, which is
+what makes the output usable inside an agent's context window. There is no
+`--json` flag on purpose: one format, one code path, one thing to read.
 
 ## Development
 
 ```bash
 uv sync
-uv run pytest -q
 uv run ruff check .
+uv run pytest -q
 uv build
 ```
 
+The test suite is a smoke test: the console script exists and `--help` exits
+0. A test that exercises one live search is the obvious next contribution.
+
 ## License
 
-MIT © yanis.labeyrie
+MIT © Yanis Labeyrie
+
+Data comes from [data.gouv.fr](https://www.data.gouv.fr) and keeps its own
+licence, usually Licence Ouverte 2.0. Check the dataset metadata before
+republishing.

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Annotated, Any, NoReturn, Optional
 
 import typer
@@ -387,33 +386,6 @@ def metrics(
         console.print(render_data_as_toon(list(rows[0].keys()), rows))
     else:
         console.print(toon_encode({"metrics": 0}))
-
-
-@app.command("inspect")
-def inspect() -> None:
-    """Show the tool's own metadata (package, entrypoint, skill, index)."""
-    from _vendor.cli_common import build_inspect_meta
-
-    tool_dir = Path(__file__).resolve().parent
-    meta = build_inspect_meta(
-        "french-gov-cli",
-        tool_dir,
-        "command-line-tools/subskills/french-gov-cli",
-        entrypoint="run_french_gov_cli.py",
-    )
-    meta["version"] = _version(tool_dir)
-    console.print(toon_encode(meta))
-
-
-def _version(tool_dir: Path) -> str:
-    """Read the package version from pyproject.toml."""
-    try:
-        for line in (tool_dir / "pyproject.toml").read_text(encoding="utf-8").splitlines():
-            if line.strip().startswith("version"):
-                return line.split("=", 1)[1].strip().strip('"')
-    except OSError:
-        pass
-    return "unknown"
 
 
 def main() -> None:
